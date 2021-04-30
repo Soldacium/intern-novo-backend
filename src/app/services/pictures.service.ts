@@ -14,19 +14,20 @@ export class PicturesService {
   ) { }
 
   getPictures(): Observable<Picture[]>{
-    return this.http.get<Picture[]>('http://localhost:3000/api/posts/').pipe(
-      map((albums: Picture[] ) => {
-        return albums;
-      })
+    return this.http.get<Picture[]>('http://localhost:3000/api/pictures/').pipe(
+        map((albums: Picture[] ) => {
+            return albums;
+        })
     );
   }
 
-  postPicture(name: string, file: File){
-      return this.http.post('http://localhost:3000/api/posts/',name).pipe(
-          map((picture: any) => {
-              return picture
-          })
-      );
+  postPicture(picture: Picture, file: File){
+    const pictureData = this.makePostData(picture, file)
+    return this.http.post('http://localhost:3000/api/pictures/',pictureData).pipe(
+        map((picture: any) => {
+            return picture
+        })
+    );
   }
 
   /*
@@ -57,5 +58,15 @@ export class PicturesService {
     );
   }
   */
+
+  private makePostData(picture: Picture, img: File): FormData{
+    const postData = new FormData();
+    console.log(picture);
+    postData.append('title', picture.name);
+    postData.append('description', picture.description);
+    postData.append('image', img, picture.name);
+
+    return postData;
+  }
 
 }

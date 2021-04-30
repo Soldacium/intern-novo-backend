@@ -1,6 +1,6 @@
 let mongoUser = {
-    login: 'xperio',
-    password: '22moko22'
+    login: 'wojwoj',
+    password: '1234'
 }
 
 module.exports =  {mongoUser}

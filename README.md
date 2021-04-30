@@ -37,8 +37,19 @@ const port = normalizePort("4000");
 The files are always uploaded to "local" folder, but this folder becomes our storage as soon as we host the website on the web. Server will be using hosting's storage space for all images, those are available always to those visiting the websites, but will be lost should the hosting change and not move /img files to the new one. Alternative to this would be storing files in MongoDB with GridFS, but for most cases "local" upload will suffice.
 
 # Usage
-1. TS Example
+1. TS Example (Angular) - get()
 ```
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Picture } from '@shared/models/picture.model';
+
+// [...your class, injectable etc.]
+  constructor(
+    private http: HttpClient
+  ) { }
+
+// returns observable wherever needed, subscribe later
   getPosts(): Observable<Album[]>{
     return this.http.get<Album[]>('http://localhost:3000/api/posts/').pipe(
       map((albums: Album[] ) => {
@@ -47,6 +58,29 @@ The files are always uploaded to "local" folder, but this folder becomes our sto
     );
   }
 ```
+
+2. TS Example (angular) - post()
+```
+
+// need to make your picture into FormData for multer
+  private makePostData(picture: Picture, img: File): FormData{
+    const postData = new FormData();
+    postData.append('title', picture.name);
+    postData.append('description', picture.description);
+    postData.append('image', img, picture.name);
+
+    return postData;
+  }
+```
+
+2. JS Exaple
+```
+
+```
+
+# Endpoints
+1. Albums
+getAll: get('albums')
 
 ## Development server
 

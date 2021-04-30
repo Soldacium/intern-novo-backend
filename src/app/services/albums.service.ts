@@ -14,12 +14,29 @@ export class AlbumsService {
     private http: HttpClient
   ) { }
 
-  getPosts(): Observable<Album[]>{
-    return this.http.get<Album[]>('http://localhost:3000/api/posts/').pipe(
+  getAlbums(): Observable<Album[]>{
+    return this.http.get<Album[]>('http://localhost:3000/api/albums/').pipe(
       map((albums: Album[] ) => {
         return albums;
       })
     );
+  }
+
+  postAlbum(name: string): Observable<Album>{
+    const postData: Album = {name, _id: '', pictures: []};
+    return this.http.post('http://localhost:3000/api/albums/', postData).pipe(
+      map((post: any) => {
+        return post;
+      })
+    );
+  }
+
+  updateAlbum(album: Album): Observable<Album>{
+    return this.http.patch('http://localhost:3000/api/albums/' + album._id,album).pipe(
+      map((album: any) => {
+        return album;
+      })
+    )
   }
 
   /*

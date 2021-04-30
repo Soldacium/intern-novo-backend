@@ -1,1 +1,10 @@
-<p>albums works!</p>
+<div class="new">
+    <app-input
+    [label]="'name'" 
+    [placeholder]="'name'" 
+    [(inputModel)]="newAlbum.name"></app-input>
+    <button (click)="addNewAlbum()">Add newest album</button>
+</div>
+<div class="albums">
+    <div *ngFor="let album of albums">{{album.name}}</div>
+</div>

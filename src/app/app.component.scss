@@ -1,0 +1,14 @@
+main{
+    width: 100%;
+    display: flex;
+
+    app-pictures{
+        padding: 5%;
+        flex: 1 1 25rem;
+    }
+
+    app-albums{
+        padding: 5%;
+        flex: 1 1 25rem;
+    }
+}

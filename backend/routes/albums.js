@@ -3,8 +3,15 @@ const router = express.Router();
 const Album = require('../models/album');
 const multer = require('multer');
 
+
 router.post('', (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host');
+    const album = new Album({
+        name: req.body.name,
+    });
+
+    album.save().then(createdAlbum => {
+        res.status(200).json(createdAlbum);
+    })
 })
 
 router.get('',(req,res,next) => {
@@ -20,7 +27,10 @@ router.get('/:id',(req,res,next) => {
 });
 
 router.patch('/:id',(req,res,next) => {
-    Album.updateOne({_id: req.params.id});
+    const album = new Album(req.body)
+    Album.updateOne({_id: req.params.id},album).then(result => {
+        res.status(200).json(result);
+    });
 })
 
 router.delete('/:id',(req,res,next) => { 

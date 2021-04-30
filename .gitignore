@@ -40,6 +40,8 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/backend/keys.js
+/backend/images
 
 # System Files
 .DS_Store

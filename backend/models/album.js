@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const albumSchema = mongoose.Schema({
-    title: String,
-    tags: [String],
+    name: String,
+    pictures: [String],
 });
 
 module.exports = mongoose.model('Album', albumSchema);

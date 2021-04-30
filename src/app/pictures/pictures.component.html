@@ -1,0 +1,22 @@
+<main>
+    <div class="new">
+        <div class="image">
+            <input #file type="file" id="selectedFile" style="display: none;"
+            accept='image/*' 
+            (change)="preview(file.files)"/>
+            <button (click)="file.click()"></button>
+            <img [src]="imgURL" *ngIf="imgURL">
+        </div>
+        <app-input
+        [label]="'name'" 
+        [placeholder]="'name'" 
+        [(inputModel)]="newPicture.name"></app-input>
+        <textarea name="" id="" cols="30" rows="10" [(ngModel)]="newPicture.description"></textarea>
+        <button (click)="addNewPicture()">Add newest album</button>
+    </div>
+    <div class="albums">
+        <div *ngFor="let picture of pictures">
+            <img [src]='picture.url' alt="">
+        </div>
+    </div>    
+</main>

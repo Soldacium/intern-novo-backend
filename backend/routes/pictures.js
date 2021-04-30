@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Image = require('../models/picture');
+const Picture = require('../models/picture');
 const multer = require('multer');
 
 const MIME_TYPE = {
@@ -25,28 +25,42 @@ const storage = multer.diskStorage({
     }
 });
 
-router.put('', multer({storage: storage}).single('image'), (req, res, next) => {
+router.post('', multer({storage: storage}).single('image'), (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
+    const picture = new Picture({
+        name: req.body.name,
+        description: req.body.description,
+        url: url + '/images/' + req.file.filename,
+    });
+    picture.save().then(result => {
+        res.status(200).json(result)
+    })
 })
 
 router.get('',(req,res,next) => {
-    Image.find().then((images) => {
+    Picture.find().then((images) => {
         res.status(200).json(images);
     });
 });
 
 router.get('/:id',(req,res,next) => {
-    Image.find().then((images) => {
+    Picture.find().then((images) => {
         res.status(200).json(images);
     });
 });
 
 router.patch('/:id',(req,res,next) => {
-    Image.updateOne({_id: req.params.id});
+    const url = req.protocol + '://' + req.get('host');
+    const picture = new Picture({
+        name: req.body.name,
+        description: req.body.description,
+        url: url + '/images/' + req.file.filename,
+    });
+    Picture.updateOne({_id: req.params.id});
 })
 
 router.delete('/:id',(req,res,next) => { 
-    Image.deleteOne({_id: req.params.id}).then(result => {
+    Picture.deleteOne({_id: req.params.id}).then(result => {
         res.status(200).json(result);
     });
 });
