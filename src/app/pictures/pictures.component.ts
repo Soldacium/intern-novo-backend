@@ -66,6 +66,12 @@ export class PicturesComponent implements OnInit {
     });
   }
 
+  deletePicture(id: string) {
+    this.picturesService.deletePicture(id).subscribe(res => {
+      this.pictures = this.pictures.filter(pic => pic._id !== id);
+    })
+  }
+
 
 
 }

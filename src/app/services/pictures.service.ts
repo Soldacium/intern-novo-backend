@@ -30,6 +30,15 @@ export class PicturesService {
     );
   }
 
+  deletePicture(id: string){
+    console.log(id);
+    return this.http.delete('http://localhost:3000/api/pictures/'+id).pipe(
+      map((picture: any) => {
+        return picture;
+      })
+    )
+  }
+
   /*
 
   getPost(postID: string): Observable<Post>{
@@ -62,7 +71,7 @@ export class PicturesService {
   private makePostData(picture: Picture, img: File): FormData{
     const postData = new FormData();
     console.log(picture);
-    postData.append('title', picture.name);
+    postData.append('name', picture.name);
     postData.append('description', picture.description);
     postData.append('image', img, picture.name);
 

@@ -32,18 +32,13 @@ router.post('', multer({storage: storage}).single('image'), (req, res, next) => 
         description: req.body.description,
         url: url + '/images/' + req.file.filename,
     });
+    console.log(picture, req.body);
     picture.save().then(result => {
         res.status(200).json(result)
     })
 })
 
 router.get('',(req,res,next) => {
-    Picture.find().then((images) => {
-        res.status(200).json(images);
-    });
-});
-
-router.get('/:id',(req,res,next) => {
     Picture.find().then((images) => {
         res.status(200).json(images);
     });
@@ -60,6 +55,7 @@ router.patch('/:id',(req,res,next) => {
 })
 
 router.delete('/:id',(req,res,next) => { 
+    console.log(req.params)
     Picture.deleteOne({_id: req.params.id}).then(result => {
         res.status(200).json(result);
     });

@@ -17,6 +17,8 @@
     <div class="albums">
         <div *ngFor="let picture of pictures">
             <img [src]='picture.url' alt="">
+            <div>{{picture.name}}</div>
+            <button (click)="deletePicture(picture._id)">Delete</button>
         </div>
     </div>    
 </main>
