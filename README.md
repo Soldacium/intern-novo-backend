@@ -125,30 +125,30 @@ import axios from 'axios';
 
 ## Endpoints
 1. Albums
-POST
-- `/albums/` - adds new album to database
-- `/albums/:id/pictures` - adds new picure to album
-GET
-- `/albums/` - returns all albums
-- `/albums/:id` - returns album
-DELETE
-- `/albums/` - deletes album
-- `/albums/:id/pictures/:pictureId` - deletes picture ref from album
-PATCH
-- `/album/:id` - updates whole album (name, desc)
+- POST
+  - `/albums/` - adds new album to database
+  - `/albums/:id/pictures` - adds new picure to album
+- GET
+  - `/albums/` - returns all albums
+  - `/albums/:id` - returns album
+- DELETE
+  - `/albums/` - deletes album
+  - `/albums/:id/pictures/:pictureId` - deletes picture ref from album
+- PATCH
+  - `/album/:id` - updates whole album (name, desc)
 
 2. Pictures
-POST
-- `/pictures/` - adds new picture to database
-GET
-- `/pictures/` - returns all pictures
-- `/pictures/:id` - returns picture
-DELETE
-- `/pictures/:id` - deletes picture and all references to it
-PATCH
-- `/pictures/:id` - update picture (name, desc)
+- POST
+  - `/pictures/` - adds new picture to database
+- GET
+  - `/pictures/` - returns all pictures
+  - `/pictures/:id` - returns picture
+- DELETE
+  - `/pictures/:id` - deletes picture and all references to it
+- PATCH
+  - `/pictures/:id` - update picture (name, desc)
 
-You can also check the endpoints by un-commenting the following code:
+You can also check the endpoints by un-commenting the following code in app.js:
 ```
 let route, routes = [];
 
