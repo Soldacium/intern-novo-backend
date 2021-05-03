@@ -16,6 +16,8 @@ export class AlbumsComponent implements OnInit {
       _id: ''
   };
 
+  pictureId = '';
+
   constructor(private albumsService: AlbumsService) { }
 
   ngOnInit(): void {
@@ -33,6 +35,18 @@ export class AlbumsComponent implements OnInit {
     this.albumsService.getAlbums().subscribe(res => {
       this.albums = res;
     })
+  }
+
+  addPictureToAlbum(pictureId: string, albumId: string): void {
+    this.albumsService.addPictureToAlbum(pictureId,albumId).subscribe(res => {
+      console.log(res);
+    })
+  }
+
+  deletePictureFromAlbum(pictureId: string, albumId: string): void {
+    this.albumsService.deletePictureFromAlbum(pictureId,albumId).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }

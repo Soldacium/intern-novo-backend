@@ -11,13 +11,15 @@
         [label]="'name'" 
         [placeholder]="'name'" 
         [(inputModel)]="newPicture.name"></app-input>
-        <textarea name="" id="" cols="30" rows="10" [(ngModel)]="newPicture.description"></textarea>
+        <textarea placeholder="Description" name="" id="" cols="30" rows="10" [(ngModel)]="newPicture.description"></textarea>
         <button (click)="addNewPicture()">Add newest album</button>
     </div>
-    <div class="albums">
-        <div *ngFor="let picture of pictures">
+    <div class="pictures">
+        <div class="picture" *ngFor="let picture of pictures">
             <img [src]='picture.url' alt="">
             <div>{{picture.name}}</div>
+            <div>{{picture.description}}</div>
+            <div>{{picture._id}}</div>
             <button (click)="deletePicture(picture._id)">Delete</button>
         </div>
     </div>    

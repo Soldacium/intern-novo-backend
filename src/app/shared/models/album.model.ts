@@ -1,7 +1,7 @@
-import { Picture } from "./picture.model";
+import { Picture } from './picture.model';
 
 export interface Album {
     name: string;
-    pictures: Picture[];
+    pictures: string[];
     _id: string;
 }

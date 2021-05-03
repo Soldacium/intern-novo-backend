@@ -34,7 +34,7 @@ export class PicturesComponent implements OnInit {
   getPictures(){
     this.picturesService.getPictures().subscribe(res => {
       this.pictures = res;
-    })
+    });
   }
 
   preview(files: any): void {
@@ -59,17 +59,17 @@ export class PicturesComponent implements OnInit {
     this.file = files[0];
   }
 
-  addNewPicture() {
-    if(!this.file || this.newPicture.name.length < 3) return;
+  addNewPicture(): void {
+    if (!this.file || this.newPicture.name.length < 3) { return; }
     this.picturesService.postPicture(this.newPicture, this.file).subscribe(res => {
       this.pictures.push(res);
     });
   }
 
-  deletePicture(id: string) {
+  deletePicture(id: string): void {
     this.picturesService.deletePicture(id).subscribe(res => {
       this.pictures = this.pictures.filter(pic => pic._id !== id);
-    })
+    });
   }
 
 

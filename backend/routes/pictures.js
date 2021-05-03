@@ -32,9 +32,8 @@ router.post('', multer({storage: storage}).single('image'), (req, res, next) => 
         description: req.body.description,
         url: url + '/images/' + req.file.filename,
     });
-    console.log(picture, req.body);
-    picture.save().then(result => {
-        res.status(200).json(result)
+    picture.save().then(picture => {
+        res.status(200).json(picture)
     })
 })
 
@@ -51,13 +50,14 @@ router.patch('/:id',(req,res,next) => {
         description: req.body.description,
         url: url + '/images/' + req.file.filename,
     });
-    Picture.updateOne({_id: req.params.id});
+    Picture.updateOne({_id: req.params.id},picture).then(updateResult => {
+        res.status(200).json(updateResult)
+    });
 })
 
 router.delete('/:id',(req,res,next) => { 
-    console.log(req.params)
-    Picture.deleteOne({_id: req.params.id}).then(result => {
-        res.status(200).json(result);
+    Picture.deleteOne({_id: req.params.id}).then(deleteResult => {
+        res.status(200).json(deleteResult);
     });
 });
 

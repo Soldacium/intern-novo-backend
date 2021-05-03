@@ -6,5 +6,18 @@
     <button (click)="addNewAlbum()">Add newest album</button>
 </div>
 <div class="albums">
-    <div *ngFor="let album of albums">{{album.name}}</div>
+    <div *ngFor="let album of albums">
+        {{album.name}}
+        {{album._id}}
+
+        <div>
+            <input type="text" [(ngModel)]="pictureId" (keyup.enter)="addPictureToAlbum(pictureId,album._id)">
+            <button (click)="addPictureToAlbum(pictureId,album._id)">Add picture</button>            
+        </div>
+
+        <div *ngFor='let picture of album.pictures'>
+            {{picture}}
+            <button (click)="deletePictureFromAlbum(picture,album._id)">Remove from album</button>
+        </div>
+    </div>
 </div>

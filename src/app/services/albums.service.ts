@@ -31,12 +31,29 @@ export class AlbumsService {
     );
   }
 
+  addPictureToAlbum(pictureId: string, albumId: string): Observable<Album>{
+    return this.http.post('http://localhost:3000/api/albums/' + albumId + '/pictures', {pictureId}).pipe(
+      map((album:any) => {
+        return album;
+      })
+    );
+  }
+
+  deletePictureFromAlbum(pictureId: string, albumId: string): Observable<Album>{
+    console.log(`http://localhost:3000/api/albums/${albumId}/pictures/${pictureId}`);
+    return this.http.delete(`http://localhost:3000/api/albums/${albumId}/pictures/${pictureId}`).pipe(
+      map((album:any) => {
+        return album;
+      })
+    );
+  }
+
   updateAlbum(album: Album): Observable<Album>{
     return this.http.patch('http://localhost:3000/api/albums/' + album._id,album).pipe(
       map((album: any) => {
         return album;
       })
-    )
+    );
   }
 
   /*
