@@ -22,13 +22,20 @@ export class AlbumsService {
     );
   }
 
-  postAlbum(name: string): Observable<Album>{
-    const postData: Album = {name, _id: '', pictures: []};
-    return this.http.post('http://localhost:3000/api/albums/', postData).pipe(
+  postAlbum(album: Album): Observable<Album>{
+    return this.http.post('http://localhost:3000/api/albums/', album).pipe(
       map((post: any) => {
         return post;
       })
     );
+  }
+
+  deleteAlbum(albumId : string): Observable<any>{
+    return this.http.delete('http://localhost:3000/api/albums/'+albumId).pipe(
+      map((res: any) => {
+        return res;
+      })
+    )
   }
 
   addPictureToAlbum(pictureId: string, albumId: string): Observable<Album>{

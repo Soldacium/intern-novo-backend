@@ -15,7 +15,7 @@ mongoose.connect(`mongodb+srv://${keys.mongoUser.login}:${keys.mongoUser.passwor
     })
     .catch(() =>{
         console.log('cannot connect to DB :/')
-    })
+    });
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -41,7 +41,7 @@ app.use('/api/albums',albumRoutes);
 app.use('/api/pictures',pictureRoutes);
 
 /*
-var route, routes = [];
+let route, routes = [];
 
 app._router.stack.forEach(function(middleware){
     if(middleware.route){ // routes registered directly on the app

@@ -7,6 +7,7 @@ const multer = require('multer');
 router.post('', (req, res, next) => {
     const album = new Album({
         name: req.body.name,
+        description: req.body.description
     });
     album.save().then(createdAlbum => {
         res.status(200).json(createdAlbum);

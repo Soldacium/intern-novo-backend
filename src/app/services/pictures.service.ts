@@ -21,52 +21,33 @@ export class PicturesService {
     );
   }
 
-  postPicture(picture: Picture, file: File){
+  postPicture(picture: Picture, file: File): Observable<Picture>{
     const pictureData = this.makePostData(picture, file)
     return this.http.post('http://localhost:3000/api/pictures/',pictureData).pipe(
         map((picture: any) => {
-            return picture
+            return picture;
         })
     );
   }
 
-  deletePicture(id: string){
+  deletePicture(id: string): Observable<any>{
     console.log(id);
     return this.http.delete('http://localhost:3000/api/pictures/'+id).pipe(
       map((picture: any) => {
         return picture;
       })
+    );
+  }
+
+  updatePicture(picture: Picture, file?: File): Observable<Picture>{
+    let pictureData;
+    if (file) pictureData = this.makePostData(picture,file)
+    return this.http.patch('http://localhost:3000/api/pictures/'+picture._id,picture).pipe(
+      map((picture: any) => {
+        return picture;
+      })
     )
-  }
-
-  /*
-
-  getPost(postID: string): Observable<Post>{
-    return this.http.get<Post>('http://localhost:3000/api/posts/' + postID).pipe(
-      map((post: Post) => {
-        return post;
-      })
-    );
-  }
-
-  postPost(post: Post, img: File){
-    const postData = this.makePostData(post, img);
-    console.log(postData, img);
-    return this.http.post('http://localhost:3000/api/posts/', postData).pipe(
-      map((post: any) => {
-        return post;
-      })
-    );
-  }
-
-  deletePost(postID: string): Observable<Post>{
-    return this.http.delete<Post>('http://localhost:3000/api/posts/' + postID).pipe(
-      map((post) => {
-        return post;
-      })
-    );
-  }
-  */
+  } 
 
   private makePostData(picture: Picture, img: File): FormData{
     const postData = new FormData();

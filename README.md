@@ -37,19 +37,19 @@ const port = normalizePort("4000");
 The files are always uploaded to "local" folder, but this folder becomes our storage as soon as we host the website on the web. Server will be using hosting's storage space for all images, those are available always to those visiting the websites, but will be lost should the hosting change and not move /img files to the new one. Alternative to this would be storing files in MongoDB with GridFS, but for most cases "local" upload will suffice.
 
 # Usage
-1. TS Example (Angular) - get()
+1. TS Example (Angular) - get() and post()
 ```
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Picture } from '@shared/models/picture.model';
 
-// [...your class, injectable etc.]
+  // <<< [...your class, injectable etc.]
+
   constructor(
     private http: HttpClient
   ) { }
 
-// returns observable wherever needed, subscribe later
   getPosts(): Observable<Album[]>{
     return this.http.get<Album[]>('http://localhost:3000/api/posts/').pipe(
       map((albums: Album[] ) => {
@@ -57,12 +57,16 @@ import { Picture } from '@shared/models/picture.model';
       })
     );
   }
-```
 
-2. TS Example (angular) - post()
-```
-
-// need to make your picture into FormData for multer
+  postPicture(picture: Picture, file: File): Observable<Picture>{
+    const pictureData = this.makePostData(picture, file)
+    return this.http.post('http://localhost:3000/api/pictures/',pictureData).pipe(
+        map((picture: any) => {
+            return picture;
+        })
+    );
+  }
+  // need to make your picture into FormData for multer
   private makePostData(picture: Picture, img: File): FormData{
     const postData = new FormData();
     postData.append('title', picture.name);
@@ -80,7 +84,48 @@ import { Picture } from '@shared/models/picture.model';
 
 # Endpoints
 1. Albums
-getAll: get('albums')
+POST
+`/albums/` - adds new album to database
+`/albums/:id/pictures` - adds new picure to album
+GET
+`/albums/` - returns all albums
+`/albums/:id` - returns album
+DELETE
+`/albums/` - deletes album
+`/albums/:id/pictures/:pictureId` - deletes picture ref from album
+PATCH
+`/album/:id` - updates whole album (name, desc, etc.)
+
+2. Pictures
+POST
+`/pictures/` - adds new picture to database
+GET
+`/pictures/` - returns all pictures
+`/pictures/:id` - returns picture
+DELETE
+`/pictures/:id` - deletes picture
+PATCH
+`/pictures/:id` - update picture (name, desc, pic)
+
+You can also check the endpoints by un-commenting the following code:
+```
+let route, routes = [];
+
+app._router.stack.forEach(function(middleware){
+    if(middleware.route){ // routes registered directly on the app
+        routes.push(middleware.route);
+    } else if(middleware.name === 'router'){ // router middleware 
+        middleware.handle.stack.forEach(function(handler){
+            route = handler.route;
+            route && routes.push(route);
+        });
+    }
+});
+
+console.log(routes);
+```
+and restarting server, routes will be visible in the console.
+
 
 ## Development server
 

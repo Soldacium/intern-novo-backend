@@ -3,18 +3,19 @@
     [label]="'name'" 
     [placeholder]="'name'" 
     [(inputModel)]="newAlbum.name"></app-input>
-    <button (click)="addNewAlbum()">Add newest album</button>
+    <button (click)="addAlbum()">Add album</button>
 </div>
 <div class="albums">
     <div *ngFor="let album of albums">
-        {{album.name}}
-        {{album._id}}
-
+        <div>
+            {{album.name}}
+            {{album._id}}   
+            <button (click)="deleteAlbum(album._id)">Delete album</button>         
+        </div>
         <div>
             <input type="text" [(ngModel)]="pictureId" (keyup.enter)="addPictureToAlbum(pictureId,album._id)">
             <button (click)="addPictureToAlbum(pictureId,album._id)">Add picture</button>            
         </div>
-
         <div *ngFor='let picture of album.pictures'>
             {{picture}}
             <button (click)="deletePictureFromAlbum(picture,album._id)">Remove from album</button>

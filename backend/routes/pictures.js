@@ -38,8 +38,14 @@ router.post('', multer({storage: storage}).single('image'), (req, res, next) => 
 })
 
 router.get('',(req,res,next) => {
-    Picture.find().then((images) => {
-        res.status(200).json(images);
+    Picture.find().then((pictures) => {
+        res.status(200).json(pictures);
+    });
+});
+
+router.get('/:id',(req,res,next) => {
+    Picture.findOne({_id: req.params.id}).then((picture) => {
+        res.status(200).json(picture);
     });
 });
 
